@@ -1,9 +1,9 @@
 package MonsterMakerPackage;
 
 public class Dice {
-    int diceCount;
-    int diceSize;
-    int bonus;
+    private int diceCount;
+    private int diceSize;
+    private int bonus;
 
     public Dice(int count, int size, int bonus) {
         diceCount = count;
@@ -19,8 +19,34 @@ public class Dice {
         this(1, size, 0);
     }
 
+    public Dice() {}
+
     public int diceAverage() {
         return diceCount * diceSize / 2 + bonus;
+    }
+
+    public int getDiceCount() {
+        return diceCount;
+    }
+
+    public void setDiceCount(int diceCount) {
+        this.diceCount = diceCount;
+    }
+
+    public int getDiceSize() {
+        return diceSize;
+    }
+
+    public void setDiceSize(int diceSize) {
+        this.diceSize = diceSize;
+    }
+
+    public int getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(int bonus) {
+        this.bonus = bonus;
     }
 
     @Override

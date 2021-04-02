@@ -1,7 +1,5 @@
 package MonsterMakerPackage;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,7 +36,7 @@ public class HTMLHelper {
         }
     }
 
-    public static void monsterToHtml(MonsterMaker monster) throws IOException {
+    public static String monsterToHtmlRaw(MonsterMaker monster) {
         String html = htmlTemplate;
         assert html != null;
         html = html.replace("NAME", monster.getName());
@@ -136,11 +134,15 @@ public class HTMLHelper {
         } else {
             html = html.replace("<h2>Reactions</h2><hr><ul>REACTIONS</ul>", "");
         }
+        return html;
+    }
+
+    public static void monsterToHtml(MonsterMaker monster) throws IOException {
 
         File file = new File(monster.getName() + ".html");
         if (file.createNewFile()) {
             FileWriter fileWriter = new FileWriter(file);
-            fileWriter.write(html);
+            fileWriter.write(monsterToHtmlRaw(monster));
             fileWriter.close();
         }
     }

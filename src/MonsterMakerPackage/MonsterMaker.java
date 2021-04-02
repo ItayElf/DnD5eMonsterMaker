@@ -1,5 +1,13 @@
 package MonsterMakerPackage;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
+import java.io.*;
+
 public class MonsterMaker {
     private String name;
     private String subtitle;
@@ -43,6 +51,20 @@ public class MonsterMaker {
 
     public MonsterMaker() {
 
+    }
+
+    public void saveAsXml(File file) throws IOException {
+        ObjectMapper mapper = new XmlMapper();
+        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        mapper.writeValue(file, this);
+    }
+
+    public static MonsterMaker fromXml(File file) throws IOException {
+        ObjectMapper mapper = new XmlMapper();
+        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        InputStream inputStream = new FileInputStream(file);
+        TypeReference<MonsterMaker> typeReference = new TypeReference<MonsterMaker>() {};
+        return mapper.readValue(inputStream, typeReference);
     }
 
     public String getName() {

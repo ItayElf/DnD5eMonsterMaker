@@ -34,6 +34,7 @@ public class Action {
         this.description = description;
         this.mode = 0;
     }
+    public Action() {};
 
 
     public int getBonusToHit() {

@@ -9,6 +9,8 @@ public class Trait {
         this.description = description;
     }
 
+    public Trait() {}
+
     public String getName() {
         return name;
     }

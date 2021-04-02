@@ -6,6 +6,10 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        if (args.length == 1) {
+            System.out.println(HTMLHelper.monsterToHtmlRaw(MonsterMaker.fromXml(new File(args[0]))));
+            return;
+        }
         MonsterMaker monsterMaker = new MonsterMaker();
         monsterMaker.setName("Gunthar");
         monsterMaker.setSubtitle("large monstrosity, chaotic netural");
@@ -31,7 +35,10 @@ public class Main {
         monsterMaker.setActions(new Action[]{action, action1, action2});
 
         monsterMaker.setReactions(new Action[]{new Action("Shield", "When a creature makes an attack against the wearer of the guardian's amulet, the guardian grants a +2 bonus to the wearer's AC if the guardian is within 5 feet of the wearer.")});
-
+        monsterMaker.saveAsXml(new File("Gunthar.xml"));
         HTMLHelper.monsterToHtml(monsterMaker);
+        MonsterMaker a = MonsterMaker.fromXml(new File("Gunthar.xml"));
+        System.out.println(a.getName());
+        System.out.println(a.getSubtitle());
     }
 }
