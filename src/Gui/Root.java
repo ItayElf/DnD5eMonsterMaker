@@ -14,6 +14,7 @@ import java.io.IOException;
 
 public class Root extends JFrame {
     private final Identity identity = new Identity();
+    private final Primary primary = new Primary();
 
     public Root() {
         super("5e Monster Maker");
@@ -22,6 +23,7 @@ public class Root extends JFrame {
 
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.add("Identity", identity);
+        tabbedPane.add("Primary", primary);
         add(tabbedPane);
 
         JMenuBar menuBar = new JMenuBar();
@@ -194,8 +196,36 @@ public class Root extends JFrame {
         monster.setAlignment((String) identity.getAlignmentBox().getSelectedItem());
         monster.setChallenge(getChallenge(identity.getChallengeField().getText()));
 
-        monster.setHitDice(new Dice(1,1,1));
-        monster.setAbilityScores(new int[] {0,0,0,0,0,0});
+        // Primary
+        monster.setAbilityScores(new int[6]);
+        try {
+            monster.setAbilityScores(0, Integer.parseInt(primary.getStrField().getText()));
+            monster.setAbilityScores(1, Integer.parseInt(primary.getDexField().getText()));
+            monster.setAbilityScores(2, Integer.parseInt(primary.getConField().getText()));
+            monster.setAbilityScores(3, Integer.parseInt(primary.getIntField().getText()));
+            monster.setAbilityScores(4, Integer.parseInt(primary.getWisField().getText()));
+            monster.setAbilityScores(5, Integer.parseInt(primary.getChaField().getText()));
+        } catch (NumberFormatException e) {
+            throw new Exception("Ability Scores can only be numbers");
+        }
+        try {
+            monster.setHitDice(new Dice(Integer.parseInt(primary.getDiceCountField().getText()),
+                    Integer.parseInt(primary.getDiceSizeField().getText()),
+                    Integer.parseInt(primary.getDiceBonusField().getText())));
+        } catch (NumberFormatException e) {
+            throw new Exception("Hit dice parameters can only be numbers");
+        }
+        try {
+            monster.setArmorClass(Integer.parseInt(primary.getAcField().getText()));
+        } catch (NumberFormatException e) {
+            throw new Exception("Armor class can only be a number");
+        }
+        monster.setArmorClassDesc(primary.getAcDescriptionField().getText());
+        monster.setDamageVulnerabilities(primary.getVulnerabilitiesField().getText());
+        monster.setDamageImmunities(primary.getImmunitiesField().getText());
+        monster.setDamageResistances(primary.getResistancesField().getText());
+        monster.setConditionImmunities(primary.getConditionImmunitiesField().getText());
+
         return monster;
     }
 
@@ -222,16 +252,34 @@ public class Root extends JFrame {
     private void open(File file) throws IOException {
         MonsterMaker monster = MonsterMaker.from5emon(file);
 
-        //Identity
+        // Identity
         identity.getNameField().setText(monster.getName());
         identity.getTagsField().setText(monster.getTag());
         identity.getChallengeField().setText(monster.challengeString());
         identity.getAlignmentBox().setSelectedItem(monster.getAlignment());
         identity.getSizeBox().setSelectedItem(monster.getSize());
         identity.getTypeBox().setSelectedItem(monster.getType());
+
+        // Primary
+        primary.getStrField().setText(monster.getAbilityScores()[0] + "");
+        primary.getDexField().setText(monster.getAbilityScores()[1] + "");
+        primary.getConField().setText(monster.getAbilityScores()[2] + "");
+        primary.getIntField().setText(monster.getAbilityScores()[3] + "");
+        primary.getWisField().setText(monster.getAbilityScores()[4] + "");
+        primary.getChaField().setText(monster.getAbilityScores()[5] + "");
+        primary.getDiceCountField().setText(monster.getHitDice().getDiceCount() + "");
+        primary.getDiceSizeField().setText(monster.getHitDice().getDiceSize() + "");
+        primary.getDiceBonusField().setText(monster.getHitDice().getBonus() + "");
+        primary.getAcField().setText(monster.getArmorClass() + "");
+        primary.getAcDescriptionField().setText(monster.getArmorClassDesc());
+        primary.getVulnerabilitiesField().setText(monster.getDamageVulnerabilities());
+        primary.getImmunitiesField().setText(monster.getDamageImmunities());
+        primary.getResistancesField().setText(monster.getDamageResistances());
+        primary.getConditionImmunitiesField().setText(monster.getConditionImmunities());
     }
 
     public void reset() {
         identity.reset();
+        primary.reset();
     }
 }

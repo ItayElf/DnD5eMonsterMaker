@@ -67,33 +67,38 @@ public class HTMLHelper {
         } else {
             html = html.replace("<li><span>Saving Throws </span>SAVINGTHROWS</li>", "");
         }
-        if (monster.getSkills() != null) {
-            html = html.replace("SKILLS", String.join(", ", monster.getSkills()));
+        if (monster.getSkills() != null && !monster.getSkills().equals("")) {
+            html = html.replace("SKILLS", monster.getSkills());
         } else {
             html = html.replace("<li><span>Skills </span>SKILLS</li>", "");
         }
-        if (monster.getDamageImmunities() != null) {
-            html = html.replace("DAMAGEIMMUNITIES", String.join(", ", monster.getDamageImmunities()));
+        if (monster.getDamageVulnerabilities() != null && !monster.getDamageVulnerabilities().equals("")) {
+            html = html.replace("DAMAGEVULNERABILITIES", monster.getDamageVulnerabilities());
+        } else {
+            html = html.replace("<li><span>Vulnerabilities </span>DAMAGEVULNERABILITIES</li>", "");
+        }
+        if (monster.getDamageImmunities() != null && !monster.getDamageImmunities().equals("")) {
+            html = html.replace("DAMAGEIMMUNITIES", monster.getDamageImmunities());
         } else {
             html = html.replace("<li><span>Damage Immunities </span>DAMAGEIMMUNITIES</li>", "");
         }
-        if (monster.getDamageResistances() != null) {
-            html = html.replace("DAMAGERESISTANCE", String.join(", ", monster.getDamageResistances()));
+        if (monster.getDamageResistances() != null && !monster.getDamageResistances().equals("")) {
+            html = html.replace("DAMAGERESISTANCE", monster.getDamageResistances());
         } else {
             html = html.replace("<li><span>Damage Resistance </span>DAMAGERESISTANCE</li>", "");
         }
-        if (monster.getConditionImmunities() != null) {
-            html = html.replace("CONDITIONIMMUNITIES", String.join(", ", monster.getConditionImmunities()));
+        if (monster.getConditionImmunities() != null && !monster.getConditionImmunities().equals("")) {
+            html = html.replace("CONDITIONIMMUNITIES", monster.getConditionImmunities());
         } else {
             html = html.replace("<li><span>Condition Immunities </span>CONDITIONIMMUNITIES</li>", "");
         }
         if (monster.getSenses() != null) {
-            html = html.replace("SENSES", String.join(", ", monster.getSenses()));
+            html = html.replace("SENSES", monster.getSenses());
         } else {
             html = html.replace("<li><span>Senses </span>SENSES</li>", "");
         }
         if (monster.getLanguages() != null) {
-            html = html.replace("LANGUAGES", String.join(", ", monster.getLanguages()));
+            html = html.replace("LANGUAGES", monster.getLanguages());
         } else {
             html = html.replace("<li><span>Languages </span>LANGUAGES</li>", "");
         }

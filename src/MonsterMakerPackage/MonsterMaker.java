@@ -10,27 +10,28 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import java.io.*;
 
 public class MonsterMaker {
-    private String name;
-    private String size;
-    private String type;
-    private String tag = "";
-    private String alignment;
+    private String name; //done
+    private String size; //done
+    private String type; //done
+    private String tag = ""; //done
+    private String alignment; //done
 
-    private int armorClass;
-    private String armorClassDesc = "";
-    private Dice hitDice;
+    private int armorClass; //done
+    private String armorClassDesc = ""; //done
+    private Dice hitDice; //done
     private int speed;
 
-    private int[] abilityScores;
+    private int[] abilityScores; //done
 
     private int[] savingThrows = new int[] {0, 0, 0, 0, 0, 0};
-    private String[] skills;
-    private String[] damageImmunities;
-    private String[] damageResistances;
-    private String[] conditionImmunities;
-    private String[] senses;
-    private String[] languages;
-    private double challenge;
+    private String skills;
+    private String damageVulnerabilities; //done
+    private String damageImmunities; //done
+    private String damageResistances; //done
+    private String conditionImmunities; //done
+    private String senses;
+    private String languages;
+    private double challenge; //done
 
     private Trait[] traits;
     private Action[] actions;
@@ -152,43 +153,43 @@ public class MonsterMaker {
         this.savingThrows[index] = value;
     }
 
-    public String[] getSkills() {
+    public String getSkills() {
         return skills;
     }
 
-    public void setSkills(String[] skills) {
+    public void setSkills(String skills) {
         this.skills = skills;
     }
 
-    public String[] getDamageImmunities() {
+    public String getDamageImmunities() {
         return damageImmunities;
     }
 
-    public void setDamageImmunities(String[] damageImmunities) {
+    public void setDamageImmunities(String damageImmunities) {
         this.damageImmunities = damageImmunities;
     }
 
-    public String[] getConditionImmunities() {
+    public String getConditionImmunities() {
         return conditionImmunities;
     }
 
-    public void setConditionImmunities(String[] conditionImmunities) {
+    public void setConditionImmunities(String conditionImmunities) {
         this.conditionImmunities = conditionImmunities;
     }
 
-    public String[] getSenses() {
+    public String getSenses() {
         return senses;
     }
 
-    public void setSenses(String[] senses) {
+    public void setSenses(String senses) {
         this.senses = senses;
     }
 
-    public String[] getLanguages() {
+    public String getLanguages() {
         return languages;
     }
 
-    public void setLanguages(String[] languages) {
+    public void setLanguages(String languages) {
         this.languages = languages;
     }
 
@@ -231,11 +232,19 @@ public class MonsterMaker {
         this.reactions = reactions;
     }
 
-    public String[] getDamageResistances() {
+    public String getDamageResistances() {
         return damageResistances;
     }
 
-    public void setDamageResistances(String[] damageResistances) {
+    public void setDamageResistances(String damageResistances) {
         this.damageResistances = damageResistances;
+    }
+
+    public String getDamageVulnerabilities() {
+        return damageVulnerabilities;
+    }
+
+    public void setDamageVulnerabilities(String damageVulnerabilities) {
+        this.damageVulnerabilities = damageVulnerabilities;
     }
 }
