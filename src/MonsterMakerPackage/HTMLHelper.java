@@ -39,7 +39,8 @@ public class HTMLHelper {
         String html = htmlTemplate;
         assert html != null;
         html = html.replace("NAME", monster.getName());
-        html = html.replace("SUBTITLE", monster.getSubtitle().substring(0,1).toUpperCase() + monster.getSubtitle().substring(1).toLowerCase());
+        String subtitle = "%s %s%s, %s".formatted(monster.getSize(), monster.getType(), monster.getTag().equals("") ? "" : " (%s)".formatted(monster.getTag()), monster.getAlignment());
+        html = html.replace("SUBTITLE", subtitle.substring(0,1).toUpperCase() + subtitle.substring(1).toLowerCase());
 
         html = html.replace("ARMORCLASS", monster.getArmorClass() + "");
         html = html.replace("ARMOR_CLASS_DESC", !monster.getArmorClassDesc().equals("") ? "(%s)".formatted(monster.getArmorClassDesc()) : "");
@@ -110,10 +111,13 @@ public class HTMLHelper {
         html = html.replace("TOTALXP", challengeToXp(monster.getChallenge()));
 
         StringBuilder a = new StringBuilder();
-        for (Trait trait : monster.getTraits()) {
-            a.append("<li>%s</li>".formatted(traitHtml(trait)));
+        if (monster.getTraits() != null) {
+            for (Trait trait : monster.getTraits()) {
+                a.append("<li>%s</li>".formatted(traitHtml(trait)));
+            }
         }
         html = html.replace("TRAITS", a.toString());
+
 
         if (monster.getActions() != null) {
             a = new StringBuilder();
@@ -136,18 +140,17 @@ public class HTMLHelper {
         return html;
     }
 
-    public static void monsterToHtml(MonsterMaker monster) throws IOException {
+    public static void monsterToHtml(MonsterMaker monster, File file) throws IOException {
 
-        File file = new File(monster.getName() + ".html");
-        if (file.createNewFile()) {
+        if (file.exists() || file.createNewFile()) {
             FileWriter fileWriter = new FileWriter(file);
             fileWriter.write(monsterToHtmlRaw(monster));
             fileWriter.close();
         }
     }
 
-    public static void monsterToHtmlOpen(MonsterMaker monster) throws IOException {
-        monsterToHtml(monster);
+    public static void monsterToHtmlOpen(MonsterMaker monster, File file) throws IOException {
+        monsterToHtml(monster, file);
         open(monster.getName()+".html");
     }
 

@@ -3,6 +3,7 @@ package MonsterMakerPackage;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
@@ -10,7 +11,10 @@ import java.io.*;
 
 public class MonsterMaker {
     private String name;
-    private String subtitle;
+    private String size;
+    private String type;
+    private String tag = "";
+    private String alignment;
 
     private int armorClass;
     private String armorClassDesc = "";
@@ -32,21 +36,6 @@ public class MonsterMaker {
     private Action[] actions;
     private Action[] reactions;
 
-    public MonsterMaker(String name, String subtitle, int armorClass, Dice hitDice, int speed, int[] abilityScores, String[] damageImmunities, String[] conditionImmunities, String[] senses, double challenge, Trait[] traits, Action[] actions) {
-        this.name = name;
-        this.subtitle = subtitle;
-        this.armorClass = armorClass;
-        this.hitDice = hitDice;
-        this.speed = speed;
-        this.abilityScores = abilityScores;
-        this.damageImmunities = damageImmunities;
-        this.conditionImmunities = conditionImmunities;
-        this.senses = senses;
-        this.challenge = challenge;
-        this.traits = traits;
-        this.actions = actions;
-    }
-
     public MonsterMaker() {
 
     }
@@ -60,6 +49,7 @@ public class MonsterMaker {
     public static MonsterMaker from5emon(File file) throws IOException {
         ObjectMapper mapper = new XmlMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         InputStream inputStream = new FileInputStream(file);
         TypeReference<MonsterMaker> typeReference = new TypeReference<>() {
         };
@@ -74,12 +64,36 @@ public class MonsterMaker {
         this.name = name;
     }
 
-    public String getSubtitle() {
-        return subtitle;
+    public String getSize() {
+        return size;
     }
 
-    public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public String getAlignment() {
+        return alignment;
+    }
+
+    public void setAlignment(String alignment) {
+        this.alignment = alignment;
     }
 
     public int getArmorClass() {
@@ -180,6 +194,13 @@ public class MonsterMaker {
 
     public double getChallenge() {
         return challenge;
+    }
+
+    public String challengeString() {
+        if (challenge == 0.125) { return "1/8"; }
+        else if (challenge == 0.25) { return "1/4"; }
+        else if (challenge == 0.5) { return "1/2"; }
+        else { return (challenge + "").split("\\.")[0]; }
     }
 
     public void setChallenge(double challenge) {
