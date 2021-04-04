@@ -1,13 +1,12 @@
 import MonsterMakerPackage.*;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         if (args.length == 1) {
-            System.out.println(HTMLHelper.monsterToHtmlRaw(MonsterMaker.fromXml(new File(args[0]))));
+            System.out.println(HTMLHelper.monsterToHtmlRaw(MonsterMaker.from5emon(new File(args[0]))));
             return;
         }
         MonsterMaker monsterMaker = new MonsterMaker();
@@ -16,7 +15,6 @@ public class Main {
 
         monsterMaker.setArmorClass(16);
         monsterMaker.setArmorClassDesc("Natural Armor");
-        monsterMaker.setHitpointsAvg(198);
         monsterMaker.setHitDice(new Dice(23, 10, 69));
         monsterMaker.setSpeed(40);
 
@@ -35,9 +33,10 @@ public class Main {
         monsterMaker.setActions(new Action[]{action, action1, action2});
 
         monsterMaker.setReactions(new Action[]{new Action("Shield", "When a creature makes an attack against the wearer of the guardian's amulet, the guardian grants a +2 bonus to the wearer's AC if the guardian is within 5 feet of the wearer.")});
-        monsterMaker.saveAsXml(new File("Gunthar.xml"));
-        HTMLHelper.monsterToHtml(monsterMaker);
-        MonsterMaker a = MonsterMaker.fromXml(new File("Gunthar.xml"));
+
+        monsterMaker.saveAs5emon(new File("Gunthar.5emon"));
+        //HTMLHelper.monsterToHtml(monsterMaker);
+        MonsterMaker a = MonsterMaker.from5emon(new File("Gunthar.5emon"));
         System.out.println(a.getName());
         System.out.println(a.getSubtitle());
     }

@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class HTMLHelper {
@@ -44,7 +43,7 @@ public class HTMLHelper {
 
         html = html.replace("ARMORCLASS", monster.getArmorClass() + "");
         html = html.replace("ARMOR_CLASS_DESC", !monster.getArmorClassDesc().equals("") ? "(%s)".formatted(monster.getArmorClassDesc()) : "");
-        html = html.replace("DICEAVG", monster.getHitpointsAvg() + "");
+        html = html.replace("DICEAVG", monster.getHitDice().hitDiceAverage() + "");
         html = html.replace("HITDICE", monster.getHitDice().toString());
         html = html.replace("SPEED", monster.getSpeed() + "");
 

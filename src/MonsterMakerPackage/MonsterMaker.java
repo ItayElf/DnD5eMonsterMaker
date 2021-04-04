@@ -14,7 +14,6 @@ public class MonsterMaker {
 
     private int armorClass;
     private String armorClassDesc = "";
-    private int hitpointsAvg;
     private Dice hitDice;
     private int speed;
 
@@ -33,11 +32,10 @@ public class MonsterMaker {
     private Action[] actions;
     private Action[] reactions;
 
-    public MonsterMaker(String name, String subtitle, int armorClass, int hitpointsAvg, Dice hitDice, int speed, int[] abilityScores, String[] damageImmunities, String[] conditionImmunities, String[] senses, double challenge, Trait[] traits, Action[] actions) {
+    public MonsterMaker(String name, String subtitle, int armorClass, Dice hitDice, int speed, int[] abilityScores, String[] damageImmunities, String[] conditionImmunities, String[] senses, double challenge, Trait[] traits, Action[] actions) {
         this.name = name;
         this.subtitle = subtitle;
         this.armorClass = armorClass;
-        this.hitpointsAvg = hitpointsAvg;
         this.hitDice = hitDice;
         this.speed = speed;
         this.abilityScores = abilityScores;
@@ -53,17 +51,18 @@ public class MonsterMaker {
 
     }
 
-    public void saveAsXml(File file) throws IOException {
+    public void saveAs5emon(File file) throws IOException {
         ObjectMapper mapper = new XmlMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         mapper.writeValue(file, this);
     }
 
-    public static MonsterMaker fromXml(File file) throws IOException {
+    public static MonsterMaker from5emon(File file) throws IOException {
         ObjectMapper mapper = new XmlMapper();
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         InputStream inputStream = new FileInputStream(file);
-        TypeReference<MonsterMaker> typeReference = new TypeReference<MonsterMaker>() {};
+        TypeReference<MonsterMaker> typeReference = new TypeReference<>() {
+        };
         return mapper.readValue(inputStream, typeReference);
     }
 
@@ -97,14 +96,6 @@ public class MonsterMaker {
 
     public void setArmorClassDesc(String armorClassDesc) {
         this.armorClassDesc = armorClassDesc;
-    }
-
-    public int getHitpointsAvg() {
-        return hitpointsAvg;
-    }
-
-    public void setHitpointsAvg(int hitpointsAvg) {
-        this.hitpointsAvg = hitpointsAvg;
     }
 
     public Dice getHitDice() {

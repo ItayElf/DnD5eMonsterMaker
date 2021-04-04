@@ -25,6 +25,10 @@ public class Dice {
         return diceCount * diceSize / 2 + bonus;
     }
 
+    public int hitDiceAverage() {
+        return (int) ((diceSize / 2 + 0.5) * diceCount + bonus);
+    }
+
     public int getDiceCount() {
         return diceCount;
     }
