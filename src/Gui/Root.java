@@ -15,6 +15,7 @@ import java.io.IOException;
 public class Root extends JFrame {
     private final Identity identity = new Identity();
     private final Primary primary = new Primary();
+    private final Secondary secondary = new Secondary();
 
     public Root() {
         super("5e Monster Maker");
@@ -24,6 +25,7 @@ public class Root extends JFrame {
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.add("Identity", identity);
         tabbedPane.add("Primary", primary);
+        tabbedPane.add("Secondary", secondary);
         add(tabbedPane);
 
         JMenuBar menuBar = new JMenuBar();
@@ -41,7 +43,9 @@ public class Root extends JFrame {
             fileChooser.setFileFilter(new FileFilter() {
                 @Override
                 public boolean accept(File f) {
-                    if (f.isDirectory()) { return false;}
+                    if (f.isDirectory()) {
+                        return false;
+                    }
                     return f.getName().toLowerCase().endsWith(".5emon");
                 }
 
@@ -72,7 +76,9 @@ public class Root extends JFrame {
                 fileChooser.setFileFilter(new FileFilter() {
                     @Override
                     public boolean accept(File f) {
-                        if (f.isDirectory()) { return false;}
+                        if (f.isDirectory()) {
+                            return false;
+                        }
                         return f.getName().toLowerCase().endsWith(".5emon");
                     }
 
@@ -93,7 +99,14 @@ public class Root extends JFrame {
                             file = new File(file.getParent(), file.getName() + ".5emon");
                         }
                     }
-                    monster.saveAs5emon(file);
+                    if (file.exists()) {
+                        int response = JOptionPane.showConfirmDialog(null, file.getAbsolutePath() + " already exists.\nDo you want to replace it?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if (response == JOptionPane.YES_OPTION) {
+                            monster.saveAs5emon(file);
+                        }
+                    } else {
+                        monster.saveAs5emon(file);
+                    }
                 }
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(tabbedPane, exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -102,7 +115,7 @@ public class Root extends JFrame {
         });
         saveItem.setAccelerator(KeyStroke.getKeyStroke('S', Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
         JMenuItem exportItem = new JMenuItem("Export");
-        exportItem.addActionListener(e-> {
+        exportItem.addActionListener(e -> {
             try {
                 MonsterMaker monster = createMonster();
                 JFileChooser fileChooser = new JFileChooser();
@@ -111,7 +124,9 @@ public class Root extends JFrame {
                 fileChooser.setFileFilter(new FileFilter() {
                     @Override
                     public boolean accept(File f) {
-                        if (f.isDirectory()) { return false;}
+                        if (f.isDirectory()) {
+                            return false;
+                        }
                         return f.getName().toLowerCase().endsWith(".html");
                     }
 
@@ -132,7 +147,14 @@ public class Root extends JFrame {
                             file = new File(file.getParent(), file.getName() + ".html");
                         }
                     }
-                    HTMLHelper.monsterToHtml(monster, file);
+                    if (file.exists()) {
+                        int response = JOptionPane.showConfirmDialog(null, file.getAbsolutePath() + " already exists.\nDo you want to replace it?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if (response == JOptionPane.YES_OPTION) {
+                            HTMLHelper.monsterToHtml(monster, file);
+                        }
+                    } else {
+                        HTMLHelper.monsterToHtml(monster, file);
+                    }
                 }
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(tabbedPane, exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -142,7 +164,7 @@ public class Root extends JFrame {
         exportItem.setAccelerator(KeyStroke.getKeyStroke('E', Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
         menu.add(exportItem);
         JMenuItem exportOpenItem = new JMenuItem("Export and Open");
-        exportOpenItem.addActionListener(e-> {
+        exportOpenItem.addActionListener(e -> {
             try {
                 MonsterMaker monster = createMonster();
                 JFileChooser fileChooser = new JFileChooser();
@@ -151,7 +173,9 @@ public class Root extends JFrame {
                 fileChooser.setFileFilter(new FileFilter() {
                     @Override
                     public boolean accept(File f) {
-                        if (f.isDirectory()) { return false;}
+                        if (f.isDirectory()) {
+                            return false;
+                        }
                         return f.getName().toLowerCase().endsWith(".html");
                     }
 
@@ -172,7 +196,14 @@ public class Root extends JFrame {
                             file = new File(file.getParent(), file.getName() + ".html");
                         }
                     }
-                    HTMLHelper.monsterToHtmlOpen(monster, file);
+                    if (file.exists()) {
+                        int response = JOptionPane.showConfirmDialog(null, file.getAbsolutePath() + " already exists.\nDo you want to replace it?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if (response == JOptionPane.YES_OPTION) {
+                            HTMLHelper.monsterToHtmlOpen(monster, file);
+                        }
+                    } else {
+                        HTMLHelper.monsterToHtmlOpen(monster, file);
+                    }
                 }
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(tabbedPane, exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -226,6 +257,18 @@ public class Root extends JFrame {
         monster.setDamageResistances(primary.getResistancesField().getText());
         monster.setConditionImmunities(primary.getConditionImmunitiesField().getText());
 
+        // Secondary
+        monster.setSavingThrows(secondary.getSavingThrowsField().getText());
+        monster.setSkills(secondary.getSkillsField().getText());
+        monster.setSenses(secondary.getSensesField().getText());
+        monster.setLanguages(secondary.getLanguagesField().getText());
+        try {
+            monster.setSpeed(Integer.parseInt(secondary.getSpeedField().getText()));
+        } catch (NumberFormatException e) {
+            throw new Exception("Speed can only be a number");
+        }
+        monster.setOtherSpeed(secondary.getOtherSpeedField().getText());
+
         return monster;
     }
 
@@ -276,6 +319,14 @@ public class Root extends JFrame {
         primary.getImmunitiesField().setText(monster.getDamageImmunities());
         primary.getResistancesField().setText(monster.getDamageResistances());
         primary.getConditionImmunitiesField().setText(monster.getConditionImmunities());
+
+        // Secondary
+        secondary.getSavingThrowsField().setText(monster.getSavingThrows());
+        secondary.getSkillsField().setText(monster.getSkills());
+        secondary.getSensesField().setText(monster.getSenses());
+        secondary.getLanguagesField().setText(monster.getLanguages());
+        secondary.getSpeedField().setText(monster.getSpeed() + "");
+        secondary.getOtherSpeedField().setText(monster.getOtherSpeed());
     }
 
     public void reset() {

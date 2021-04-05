@@ -20,6 +20,7 @@ public class Action {
         this.damageType = damageType;
         this.description = description;
     }
+
     public Action(String name, int mode, int bonusToHit, int[] reach, String targets, Dice damageDice, String damageType) {
         this.name = name;
         this.mode = mode;
@@ -29,12 +30,15 @@ public class Action {
         this.damageDice = damageDice;
         this.damageType = damageType;
     }
+
     public Action(String name, String description) {
         this.name = name;
         this.description = description;
         this.mode = 0;
     }
-    public Action() {};
+
+    public Action() {
+    }
 
 
     public int getBonusToHit() {

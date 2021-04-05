@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class HTMLHelper {
@@ -40,30 +39,23 @@ public class HTMLHelper {
         assert html != null;
         html = html.replace("NAME", monster.getName());
         String subtitle = "%s %s%s, %s".formatted(monster.getSize(), monster.getType(), monster.getTag().equals("") ? "" : " (%s)".formatted(monster.getTag()), monster.getAlignment());
-        html = html.replace("SUBTITLE", subtitle.substring(0,1).toUpperCase() + subtitle.substring(1).toLowerCase());
+        html = html.replace("SUBTITLE", subtitle.substring(0, 1).toUpperCase() + subtitle.substring(1).toLowerCase());
 
         html = html.replace("ARMORCLASS", monster.getArmorClass() + "");
         html = html.replace("ARMOR_CLASS_DESC", !monster.getArmorClassDesc().equals("") ? "(%s)".formatted(monster.getArmorClassDesc()) : "");
         html = html.replace("DICEAVG", monster.getHitDice().hitDiceAverage() + "");
         html = html.replace("HITDICE", monster.getHitDice().toString());
         html = html.replace("SPEED", monster.getSpeed() + "");
+        html = html.replace("OTHER", (monster.getOtherSpeed() != null && !monster.getOtherSpeed().equals("")) ? ", " + monster.getOtherSpeed() : "");
 
         for (int i = 0; i < monster.getAbilityScores().length; i++) {
-            html = html.replace("ATR" + (i+1), monster.getAbilityScores()[i] + "");
+            html = html.replace("ATR" + (i + 1), monster.getAbilityScores()[i] + "");
             int mod = (monster.getAbilityScores()[i] - 10) / 2;
-            html = html.replace("MOD" + (i+1), mod >= 0 ? "+" + mod : "-" + Math.abs(mod));
+            html = html.replace("MOD" + (i + 1), mod >= 0 ? "+" + mod : "-" + Math.abs(mod));
         }
 
-        if (!Arrays.equals(monster.getSavingThrows(), new int[]{0, 0, 0, 0, 0, 0})) {
-            String[] abilities = new String[]{"Str", "Dex", "Con", "Int", "Wis", "Cha"};
-            StringBuilder a = new StringBuilder();
-            for (int i = 0; i < monster.getSavingThrows().length; i++) {
-                if (monster.getSavingThrows()[i] != 0) {
-                    a.append(abilities[i]).append(" +").append(monster.getSavingThrows()[i]).append(",");
-                }
-            }
-            String b = a.toString();
-            html = html.replace("SAVINGTHROWS", b.substring(0, b.length()-1));
+        if (monster.getSavingThrows() != null && !monster.getSavingThrows().equals("")) {
+            html = html.replace("SAVINGTHROWS", monster.getSavingThrows());
         } else {
             html = html.replace("<li><span>Saving Throws </span>SAVINGTHROWS</li>", "");
         }
@@ -92,12 +84,12 @@ public class HTMLHelper {
         } else {
             html = html.replace("<li><span>Condition Immunities </span>CONDITIONIMMUNITIES</li>", "");
         }
-        if (monster.getSenses() != null) {
+        if (monster.getSenses() != null && !monster.getSenses().equals("")) {
             html = html.replace("SENSES", monster.getSenses());
         } else {
             html = html.replace("<li><span>Senses </span>SENSES</li>", "");
         }
-        if (monster.getLanguages() != null) {
+        if (monster.getLanguages() != null && !monster.getLanguages().equals("")) {
             html = html.replace("LANGUAGES", monster.getLanguages());
         } else {
             html = html.replace("<li><span>Languages </span>LANGUAGES</li>", "");
@@ -156,7 +148,7 @@ public class HTMLHelper {
 
     public static void monsterToHtmlOpen(MonsterMaker monster, File file) throws IOException {
         monsterToHtml(monster, file);
-        open(monster.getName()+".html");
+        open(monster.getName() + ".html");
     }
 
     private static String traitHtml(Trait trait) {

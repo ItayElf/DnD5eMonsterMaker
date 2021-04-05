@@ -7,7 +7,10 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MonsterMaker {
     private String name; //done
@@ -20,10 +23,11 @@ public class MonsterMaker {
     private String armorClassDesc = ""; //done
     private Dice hitDice; //done
     private int speed;
+    private String otherSpeed;
 
     private int[] abilityScores; //done
 
-    private int[] savingThrows = new int[] {0, 0, 0, 0, 0, 0};
+    private String savingThrows;
     private String skills;
     private String damageVulnerabilities; //done
     private String damageImmunities; //done
@@ -137,20 +141,16 @@ public class MonsterMaker {
         this.abilityScores = abilityScores;
     }
 
-    public void  setAbilityScores(int index, int value) {
+    public void setAbilityScores(int index, int value) {
         this.abilityScores[index] = value;
     }
 
-    public int[] getSavingThrows() {
+    public String getSavingThrows() {
         return savingThrows;
     }
 
-    public void setSavingThrows(int[] savingThrows) {
+    public void setSavingThrows(String savingThrows) {
         this.savingThrows = savingThrows;
-    }
-
-    public void setSavingThrows(int index, int value) {
-        this.savingThrows[index] = value;
     }
 
     public String getSkills() {
@@ -198,10 +198,15 @@ public class MonsterMaker {
     }
 
     public String challengeString() {
-        if (challenge == 0.125) { return "1/8"; }
-        else if (challenge == 0.25) { return "1/4"; }
-        else if (challenge == 0.5) { return "1/2"; }
-        else { return (challenge + "").split("\\.")[0]; }
+        if (challenge == 0.125) {
+            return "1/8";
+        } else if (challenge == 0.25) {
+            return "1/4";
+        } else if (challenge == 0.5) {
+            return "1/2";
+        } else {
+            return (challenge + "").split("\\.")[0];
+        }
     }
 
     public void setChallenge(double challenge) {
@@ -246,5 +251,13 @@ public class MonsterMaker {
 
     public void setDamageVulnerabilities(String damageVulnerabilities) {
         this.damageVulnerabilities = damageVulnerabilities;
+    }
+
+    public String getOtherSpeed() {
+        return otherSpeed;
+    }
+
+    public void setOtherSpeed(String otherSpeed) {
+        this.otherSpeed = otherSpeed;
     }
 }

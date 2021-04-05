@@ -19,7 +19,8 @@ public class Dice {
         this(1, size, 0);
     }
 
-    public Dice() {}
+    public Dice() {
+    }
 
     public int diceAverage() {
         return diceCount * diceSize / 2 + bonus;

@@ -1,5 +1,6 @@
 import Gui.Root;
-import MonsterMakerPackage.*;
+import MonsterMakerPackage.HTMLHelper;
+import MonsterMakerPackage.MonsterMaker;
 
 import java.io.File;
 import java.io.IOException;

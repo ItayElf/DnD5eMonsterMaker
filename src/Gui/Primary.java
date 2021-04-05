@@ -50,7 +50,7 @@ public class Primary extends JPanel {
 
         JPanel top = new JPanel(new MigLayout("fillx"));
 
-        JPanel abilities = new JPanel(new GridLayout(2,3));
+        JPanel abilities = new JPanel(new GridLayout(2, 3));
         abilities.setBorder(BorderFactory.createTitledBorder("Ability Scores"));
         addAbility(abilities, strField, "STR");
         addAbility(abilities, dexField, "DEX");
@@ -59,7 +59,7 @@ public class Primary extends JPanel {
         addAbility(abilities, wisField, "WIS");
         addAbility(abilities, chaField, "CHA");
 
-        JPanel container = new JPanel(new GridLayout(2,1));
+        JPanel container = new JPanel(new GridLayout(2, 1));
         JPanel hitDice = new JPanel(new MigLayout("fillx"));
         hitDice.setBorder(BorderFactory.createTitledBorder("Hit Dice"));
         hitDice.add(diceCountField, "width 25%");
@@ -131,7 +131,7 @@ public class Primary extends JPanel {
         acField.setText("");
         acDescriptionField.setText("");
         vulnerabilitiesField.setText("");
-        immunitiesField .setText("");
+        immunitiesField.setText("");
         resistancesField.setText("");
         conditionImmunitiesField.setText("");
     }
