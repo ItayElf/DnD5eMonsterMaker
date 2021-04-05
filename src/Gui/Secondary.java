@@ -50,6 +50,15 @@ public class Secondary extends JPanel {
         add(other);
     }
 
+    public void reset() {
+        savingThrowsField.setText("");
+        skillsField.setText("");
+        sensesField.setText("");
+        languagesField.setText("");
+        speedField.setText("");
+        otherSpeedField.setText("");
+    }
+
     public JTextField getSavingThrowsField() {
         return savingThrowsField;
     }

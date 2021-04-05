@@ -12,6 +12,11 @@ public class Trait {
     public Trait() {
     }
 
+    @Override
+    public String toString() {
+        return "<html><strong>" + name + "</strong> - " + description + "</html>";
+    }
+
     public String getName() {
         return name;
     }

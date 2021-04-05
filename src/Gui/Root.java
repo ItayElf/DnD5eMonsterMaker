@@ -16,6 +16,7 @@ public class Root extends JFrame {
     private final Identity identity = new Identity();
     private final Primary primary = new Primary();
     private final Secondary secondary = new Secondary();
+    private final TraitsPanel traitsPanel = new TraitsPanel();
 
     public Root() {
         super("5e Monster Maker");
@@ -26,6 +27,7 @@ public class Root extends JFrame {
         tabbedPane.add("Identity", identity);
         tabbedPane.add("Primary", primary);
         tabbedPane.add("Secondary", secondary);
+        tabbedPane.add("Traits", traitsPanel);
         add(tabbedPane);
 
         JMenuBar menuBar = new JMenuBar();
@@ -269,6 +271,9 @@ public class Root extends JFrame {
         }
         monster.setOtherSpeed(secondary.getOtherSpeedField().getText());
 
+        // TraitsPanel
+        monster.setTraits(traitsPanel.getTraits());
+
         return monster;
     }
 
@@ -327,10 +332,15 @@ public class Root extends JFrame {
         secondary.getLanguagesField().setText(monster.getLanguages());
         secondary.getSpeedField().setText(monster.getSpeed() + "");
         secondary.getOtherSpeedField().setText(monster.getOtherSpeed());
+
+        // TraitsPanel
+        traitsPanel.load(monster.getTraits());
     }
 
     public void reset() {
         identity.reset();
         primary.reset();
+        secondary.reset();
+        traitsPanel.load(null);
     }
 }
