@@ -18,6 +18,7 @@ public class Root extends JFrame {
     private final Secondary secondary = new Secondary();
     private final TraitsPanel traitsPanel = new TraitsPanel();
     private final ActionsPanel actionsPanel = new ActionsPanel();
+    private final TraitsPanel reactionsPanel = new TraitsPanel();
 
     public Root() {
         super("5e Monster Maker");
@@ -30,6 +31,7 @@ public class Root extends JFrame {
         tabbedPane.add("Secondary", secondary);
         tabbedPane.add("Traits", traitsPanel);
         tabbedPane.add("Actions", actionsPanel);
+        tabbedPane.add("Reactions", reactionsPanel);
         add(tabbedPane);
 
         JMenuBar menuBar = new JMenuBar();
@@ -279,6 +281,9 @@ public class Root extends JFrame {
         // ActionPanel
         monster.setActions(actionsPanel.getActions());
 
+        // ReactionPanel
+        monster.setReactions(reactionsPanel.getTraits());
+
         return monster;
     }
 
@@ -343,6 +348,9 @@ public class Root extends JFrame {
 
         // ActionPanel
         actionsPanel.load(monster.getActions());
+
+        // ReactionPanel
+        reactionsPanel.load(monster.getReactions());
     }
 
     public void reset() {

@@ -127,8 +127,8 @@ public class HTMLHelper {
         }
         if (monster.getReactions() != null) {
             a = new StringBuilder();
-            for (Action reaction : monster.getReactions()) {
-                a.append("<li>%s</li>".formatted(actionHtml(reaction)));
+            for (Trait reaction : monster.getReactions()) {
+                a.append("<li>%s</li>".formatted(traitHtml(reaction)));
             }
             html = html.replace("REACTIONS", a.toString());
         } else {

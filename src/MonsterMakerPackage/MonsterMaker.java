@@ -39,7 +39,7 @@ public class MonsterMaker {
 
     private Trait[] traits;
     private Action[] actions;
-    private Action[] reactions;
+    private Trait[] reactions;
 
     public MonsterMaker() {
 
@@ -229,11 +229,11 @@ public class MonsterMaker {
         this.actions = actions;
     }
 
-    public Action[] getReactions() {
+    public Trait[] getReactions() {
         return reactions;
     }
 
-    public void setReactions(Action[] reactions) {
+    public void setReactions(Trait[] reactions) {
         this.reactions = reactions;
     }
 

@@ -70,7 +70,9 @@ public class ActionsPanel extends JPanel {
         JTextField diceCountField = new JTextField();
         JTextField diceSizeField = new JTextField();
         JTextField diceBonusField = new JTextField();
-        JTextField damageTypeField = new JTextField();
+        JComboBox<String> damageTypeBox = new JComboBox<>(new String[]{"acid", "bludgeoning", "cold", "fire", "force", "lightning", "necrotic", "piercing", "poison", "psychic", "radiant", "slashing", "thunder"});
+        damageTypeBox.setEditable(true);
+        damageTypeBox.setSelectedItem("");
 
         JFrame topLevel = new JFrame("New Action");
         topLevel.setSize(Defaults.getScreenWidth() /2, (int) (Defaults.getScreenHeight() * 1.5));
@@ -96,7 +98,7 @@ public class ActionsPanel extends JPanel {
                 diceCountField.setEnabled(false);
                 diceSizeField.setEnabled(false);
                 diceBonusField.setEnabled(false);
-                damageTypeField.setEnabled(false);
+                damageTypeBox.setEnabled(false);
             } else {
                 attackBonusField.setEnabled(true);
                 reachField.setEnabled(true);
@@ -104,7 +106,7 @@ public class ActionsPanel extends JPanel {
                 diceCountField.setEnabled(true);
                 diceSizeField.setEnabled(true);
                 diceBonusField.setEnabled(true);
-                damageTypeField.setEnabled(true);
+                damageTypeBox.setEnabled(true);
             }
         });
         modeBox.setSelectedIndex(0);
@@ -146,8 +148,8 @@ public class ActionsPanel extends JPanel {
 
         JPanel damageType = new JPanel(new MigLayout("fillx"));
         damageType.setBorder(BorderFactory.createTitledBorder("Damage Type"));
-        damageTypeField.setFont(Defaults.getTextFieldFontSmall());
-        damageType.add(damageTypeField, "width 100%");
+        damageTypeBox.setFont(Defaults.getTextFieldFontSmall());
+        damageType.add(damageTypeBox, "width 100%");
         wrapper.add(damageType, "wrap, width 100%");
 
 
@@ -194,7 +196,7 @@ public class ActionsPanel extends JPanel {
                         JOptionPane.showMessageDialog(topLevel, "Damage dice parameters can only be numbers", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
-                    action = new Action(nameField.getText(), modeBox.getSelectedIndex(), bonusToHit, reachField.getText(), targetsField.getText(), new Dice(count, size, bonus), damageTypeField.getText(), descArea.getText());
+                    action = new Action(nameField.getText(), modeBox.getSelectedIndex(), bonusToHit, reachField.getText(), targetsField.getText(), new Dice(count, size, bonus), (String) damageTypeBox.getSelectedItem(), descArea.getText());
                 }
                 addAction(action);
                 topLevel.dispose();
@@ -223,8 +225,9 @@ public class ActionsPanel extends JPanel {
         diceSizeField.setText(action.getDamageDice().getDiceSize() + "");
         JTextField diceBonusField = new JTextField();
         diceBonusField.setText(action.getDamageDice().getBonus() + "");
-        JTextField damageTypeField = new JTextField();
-        damageTypeField.setText(action.getDamageType());
+        JComboBox<String> damageTypeBox = new JComboBox<>(new String[]{"acid", "bludgeoning", "cold", "fire", "force", "lightning", "necrotic", "piercing", "poison", "psychic", "radiant", "slashing", "thunder"});
+        damageTypeBox.setEditable(true);
+        damageTypeBox.setSelectedItem(action.getDamageType());
 
         JFrame topLevel = new JFrame("Edit Action");
         topLevel.setSize(Defaults.getScreenWidth() /2, (int) (Defaults.getScreenHeight() * 1.5));
@@ -251,7 +254,7 @@ public class ActionsPanel extends JPanel {
                 diceCountField.setEnabled(false);
                 diceSizeField.setEnabled(false);
                 diceBonusField.setEnabled(false);
-                damageTypeField.setEnabled(false);
+                damageTypeBox.setEnabled(false);
             } else {
                 attackBonusField.setEnabled(true);
                 reachField.setEnabled(true);
@@ -259,7 +262,7 @@ public class ActionsPanel extends JPanel {
                 diceCountField.setEnabled(true);
                 diceSizeField.setEnabled(true);
                 diceBonusField.setEnabled(true);
-                damageTypeField.setEnabled(true);
+                damageTypeBox.setEnabled(true);
             }
         });
         modeBox.setSelectedIndex(action.getMode());
@@ -301,8 +304,8 @@ public class ActionsPanel extends JPanel {
 
         JPanel damageType = new JPanel(new MigLayout("fillx"));
         damageType.setBorder(BorderFactory.createTitledBorder("Damage Type"));
-        damageTypeField.setFont(Defaults.getTextFieldFontSmall());
-        damageType.add(damageTypeField, "width 100%");
+        damageTypeBox.setFont(Defaults.getTextFieldFontSmall());
+        damageType.add(damageTypeBox, "width 100%");
         wrapper.add(damageType, "wrap, width 100%");
 
 
@@ -350,7 +353,7 @@ public class ActionsPanel extends JPanel {
                         JOptionPane.showMessageDialog(topLevel, "Damage dice parameters can only be numbers", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
-                    action1 = new Action(nameField.getText(), modeBox.getSelectedIndex(), bonusToHit, reachField.getText(), targetsField.getText(), new Dice(count, size, bonus), damageTypeField.getText(), descArea.getText());
+                    action1 = new Action(nameField.getText(), modeBox.getSelectedIndex(), bonusToHit, reachField.getText(), targetsField.getText(), new Dice(count, size, bonus), (String) damageTypeBox.getSelectedItem(), descArea.getText());
                 }
                 updateAction(action1, index);
                 topLevel.dispose();
