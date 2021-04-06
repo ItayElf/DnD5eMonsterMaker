@@ -6,10 +6,9 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class TraitsPanel extends JPanel {
-    private Trait[] traits = new Trait[]{new Trait("aaa", "bbb")};
+    private Trait[] traits = new Trait[0];
     private final JList<Trait> list;
     private final DefaultListModel<Trait> listModel;
 
@@ -108,7 +107,7 @@ public class TraitsPanel extends JPanel {
 
     private void editTrait(int index) {
         Trait trait = traits[index];
-        JFrame topLevel = new JFrame("New Trait");
+        JFrame topLevel = new JFrame("Edit Trait");
         topLevel.setSize(Defaults.getScreenWidth() /2, Defaults.getScreenHeight());
         JPanel wrapper = new JPanel(new MigLayout("fill"));
 

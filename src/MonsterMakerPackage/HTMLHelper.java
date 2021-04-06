@@ -159,11 +159,11 @@ public class HTMLHelper {
         if (action.getMode() == 0) {
             return "<span>%s.</span>%s".formatted(action.getName(), action.getDescription());
         } else {
-            return "<span>%s.</span>%s Weapon Attack: %s to hit, reach %s ft., %s. Hit: %s (%s) %s damage%s.".formatted(
+            return "<span>%s.</span> %s Weapon Attack: %s to hit, reach %s ft., %s. Hit: %s (%s) %s damage%s.".formatted(
                     action.getName(),
                     action.getMode() == 1 ? "Melee" : "Ranged",
                     action.getBonusToHit() >= 0 ? "+" + action.getBonusToHit() : action.getBonusToHit() + "",
-                    action.getMode() == 1 ? action.getReach()[0] + "" : action.getReach()[0] + "/" + action.getReach()[1],
+                    action.getReach(),
                     action.getTargets() + ((action.getTargets()).equals("one") ? " target" : " targets"),
                     action.getDamageDice().diceAverage() + "",
                     action.getDamageDice().toString(),

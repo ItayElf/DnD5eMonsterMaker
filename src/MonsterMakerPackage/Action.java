@@ -4,13 +4,13 @@ public class Action {
     private String name;
     private int mode; // 0 - no attack, 1 - melee, 2 - ranged
     private int bonusToHit;
-    private int[] reach;
+    private String reach;
     private String targets;
     private Dice damageDice;
     private String damageType;
     private String description = "";
 
-    public Action(String name, int mode, int bonusToHit, int[] reach, String targets, Dice damageDice, String damageType, String description) {
+    public Action(String name, int mode, int bonusToHit, String reach, String targets, Dice damageDice, String damageType, String description) {
         this.name = name;
         this.mode = mode;
         this.bonusToHit = bonusToHit;
@@ -21,7 +21,7 @@ public class Action {
         this.description = description;
     }
 
-    public Action(String name, int mode, int bonusToHit, int[] reach, String targets, Dice damageDice, String damageType) {
+    public Action(String name, int mode, int bonusToHit, String reach, String targets, Dice damageDice, String damageType) {
         this.name = name;
         this.mode = mode;
         this.bonusToHit = bonusToHit;
@@ -40,6 +40,23 @@ public class Action {
     public Action() {
     }
 
+    @Override
+    public String toString() {
+        if (mode == 0) {
+            return "<html><strong>" + name + "</strong> - " + description + "</html>";
+        }
+        return "<html><strong>%s.</strong> %s Weapon Attack: %s to hit, reach %s ft., %s. Hit: %s (%s) %s damage%s.</html>".formatted(
+                name,
+                mode == 1 ? "Melee" : "Ranged",
+                bonusToHit >= 0 ? "+" + bonusToHit : bonusToHit + "",
+                reach + "",
+                targets + (targets.equals("one") ? " target" : " targets"),
+                damageDice.diceAverage() + "",
+                damageDice.toString(),
+                damageType,
+                description
+        );
+    }
 
     public int getBonusToHit() {
         return bonusToHit;
@@ -49,11 +66,11 @@ public class Action {
         this.bonusToHit = bonusToHit;
     }
 
-    public int[] getReach() {
+    public String getReach() {
         return reach;
     }
 
-    public void setReach(int[] reach) {
+    public void setReach(String reach) {
         this.reach = reach;
     }
 
