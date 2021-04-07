@@ -2,31 +2,22 @@ package MonsterMakerPackage;
 
 import java.awt.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class HTMLHelper {
-    private static final String htmlTemplate = loadFile();
 
     private static String loadFile() {
-        File template = new File(HTMLHelper.class.getResource("/static/index.html").getFile());
         StringBuilder sb = new StringBuilder();
-        try {
-            Scanner scanner = new Scanner(template);
-            while (scanner.hasNextLine()) {
-                sb.append(scanner.nextLine());
-            }
-            return sb.toString();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        Scanner scanner = new Scanner(HTMLHelper.class.getResourceAsStream("/static/index.html"));
+        while (scanner.hasNextLine()) {
+            sb.append(scanner.nextLine());
         }
-        return null;
+        return sb.toString();
     }
 
-    public static void open(String filepath) {
-        File htmlFile = new File(filepath);
+    public static void open(File htmlFile) {
         try {
             Desktop.getDesktop().browse(htmlFile.toURI());
         } catch (IOException e) {
@@ -35,8 +26,7 @@ public class HTMLHelper {
     }
 
     public static String monsterToHtmlRaw(MonsterMaker monster) {
-        String html = htmlTemplate;
-        assert html != null;
+        String html = loadFile();
         html = html.replace("NAME", monster.getName());
         String subtitle = "%s %s%s, %s".formatted(monster.getSize(), monster.getType(), monster.getTag().equals("") ? "" : " (%s)".formatted(monster.getTag()), monster.getAlignment());
         html = html.replace("SUBTITLE", subtitle.substring(0, 1).toUpperCase() + subtitle.substring(1).toLowerCase());
@@ -148,7 +138,7 @@ public class HTMLHelper {
 
     public static void monsterToHtmlOpen(MonsterMaker monster, File file) throws IOException {
         monsterToHtml(monster, file);
-        open(monster.getName() + ".html");
+        open(file);
     }
 
     private static String traitHtml(Trait trait) {

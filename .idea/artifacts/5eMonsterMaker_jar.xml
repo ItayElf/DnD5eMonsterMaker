@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="5eMonsterMaker:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/5eMonsterMaker_jar</output-path>
+    <root id="archive" name="5eMonsterMaker.jar">
+      <element id="module-output" name="5eMonsterMaker" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Dependencies/jackson-annotations-2.12.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Dependencies/jackson-core-2.12.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Dependencies/jackson-databind-2.12.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Dependencies/jackson-dataformat-xml-2.12.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Dependencies/jackson-module-jaxb-annotations-2.12.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Dependencies/jakarta.activation-api-1.2.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Dependencies/jakarta.xml.bind-api-2.3.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Dependencies/miglayout-3.5.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Dependencies/stax2-api-4.2.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Dependencies/woodstox-core-6.2.4.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
