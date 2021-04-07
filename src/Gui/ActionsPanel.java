@@ -2,7 +2,6 @@ package Gui;
 
 import MonsterMakerPackage.Action;
 import MonsterMakerPackage.Dice;
-import MonsterMakerPackage.Trait;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -75,7 +74,7 @@ public class ActionsPanel extends JPanel {
         damageTypeBox.setSelectedItem("");
 
         JFrame topLevel = new JFrame("New Action");
-        topLevel.setSize(Defaults.getScreenWidth() /2, (int) (Defaults.getScreenHeight() * 1.5));
+        topLevel.setSize(Defaults.getScreenWidth() / 2, (int) (Defaults.getScreenHeight() * 1.5));
         JPanel wrapper = new JPanel(new MigLayout("fill"));
 
         JPanel namePanel = new JPanel(new MigLayout("fillx"));
@@ -204,7 +203,7 @@ public class ActionsPanel extends JPanel {
                 JOptionPane.showMessageDialog(topLevel, "Please enter a name", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-        buttons.add(accept,"align 100%");
+        buttons.add(accept, "align 100%");
         wrapper.add(buttons, "width 100%");
 
         topLevel.add(wrapper);
@@ -230,7 +229,7 @@ public class ActionsPanel extends JPanel {
         damageTypeBox.setSelectedItem(action.getDamageType());
 
         JFrame topLevel = new JFrame("Edit Action");
-        topLevel.setSize(Defaults.getScreenWidth() /2, (int) (Defaults.getScreenHeight() * 1.5));
+        topLevel.setSize(Defaults.getScreenWidth() / 2, (int) (Defaults.getScreenHeight() * 1.5));
         JPanel wrapper = new JPanel(new MigLayout("fill"));
 
         JPanel namePanel = new JPanel(new MigLayout("fillx"));
@@ -361,7 +360,7 @@ public class ActionsPanel extends JPanel {
                 JOptionPane.showMessageDialog(topLevel, "Please enter a name", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-        buttons.add(accept,"align 100%");
+        buttons.add(accept, "align 100%");
         wrapper.add(buttons, "width 100%");
 
         topLevel.add(wrapper);
@@ -370,7 +369,7 @@ public class ActionsPanel extends JPanel {
 
     private void addAction(Action action) {
         if (action != null) {
-            Action[] temp = new Action[actions.length+1];
+            Action[] temp = new Action[actions.length + 1];
             System.arraycopy(actions, 0, temp, 0, actions.length);
             temp[actions.length] = action;
             actions = temp;
@@ -385,9 +384,11 @@ public class ActionsPanel extends JPanel {
 
     private void removeAction(int index) {
         if (index > -1 && index < actions.length) {
-            Action[] temp = new Action[actions.length-1];
+            Action[] temp = new Action[actions.length - 1];
             for (int i = 0, k = 0; i < actions.length; i++) {
-                if (i == index) { continue; }
+                if (i == index) {
+                    continue;
+                }
                 temp[k++] = actions[i];
             }
             actions = temp;
@@ -397,23 +398,23 @@ public class ActionsPanel extends JPanel {
 
     private void moveUpAction(int index) {
         if (index > 0) {
-            Action temp = actions[index-1];
-            actions[index-1] = actions[index];
+            Action temp = actions[index - 1];
+            actions[index - 1] = actions[index];
             actions[index] = temp;
             listModel.setElementAt(temp, index);
-            listModel.setElementAt(actions[index-1],index-1);
-            list.setSelectedIndex(index-1);
+            listModel.setElementAt(actions[index - 1], index - 1);
+            list.setSelectedIndex(index - 1);
         }
     }
 
     private void moveDownAction(int index) {
-        if (index < actions.length-1) {
-            Action temp = actions[index+1];
-            actions[index+1] = actions[index];
+        if (index < actions.length - 1) {
+            Action temp = actions[index + 1];
+            actions[index + 1] = actions[index];
             actions[index] = temp;
             listModel.setElementAt(temp, index);
-            listModel.setElementAt(actions[index+1],index+1);
-            list.setSelectedIndex(index+1);
+            listModel.setElementAt(actions[index + 1], index + 1);
+            list.setSelectedIndex(index + 1);
         }
     }
 

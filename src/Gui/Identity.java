@@ -19,6 +19,7 @@ public class Identity extends JPanel {
         tagsField.setFont(Defaults.getTextFieldFont());
         challengeField.setFont(Defaults.getTextFieldFont());
         alignmentBox.setFont(Defaults.getComboBoxFont());
+        alignmentBox.setEditable(true);
         sizeBox.setFont(Defaults.getComboBoxFont());
         sizeBox.setSelectedIndex(2);
         typeBox.setFont(Defaults.getComboBoxFont());

@@ -218,6 +218,11 @@ public class Root extends JFrame {
         });
         exportOpenItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
         menu.add(exportOpenItem);
+        menuBar.add(new Tools(identity.getChallengeField(),
+                new JTextField[]{primary.getDiceCountField(), primary.getDiceSizeField(), primary.getDiceBonusField()},
+                identity.getSizeBox(),
+                new JTextField[]{primary.getStrField(), primary.getDexField(), primary.getConField(), primary.getIntField(), primary.getWisField(), primary.getChaField()},
+                secondary.getSkillsField()));
         setJMenuBar(menuBar);
 
         setVisible(true);
@@ -359,5 +364,6 @@ public class Root extends JFrame {
         secondary.reset();
         traitsPanel.load(null);
         actionsPanel.load(null);
+        reactionsPanel.load(null);
     }
 }

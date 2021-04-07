@@ -15,7 +15,7 @@ public class Secondary extends JPanel {
 
     public Secondary() {
         super();
-        setLayout(new GridLayout(3,2));
+        setLayout(new GridLayout(3, 2));
         savingThrowsField.setFont(Defaults.getTextFieldFont());
         skillsField.setFont(Defaults.getTextFieldFont());
         sensesField.setFont(Defaults.getTextFieldFont());

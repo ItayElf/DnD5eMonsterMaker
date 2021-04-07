@@ -63,7 +63,7 @@ public class TraitsPanel extends JPanel {
 
     private void addTrait() {
         JFrame topLevel = new JFrame("New Trait");
-        topLevel.setSize(Defaults.getScreenWidth() /2, Defaults.getScreenHeight());
+        topLevel.setSize(Defaults.getScreenWidth() / 2, Defaults.getScreenHeight());
         JPanel wrapper = new JPanel(new MigLayout("fill"));
 
         JPanel namePanel = new JPanel(new MigLayout("fillx"));
@@ -98,7 +98,7 @@ public class TraitsPanel extends JPanel {
                 JOptionPane.showMessageDialog(topLevel, "Please enter a name", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-        buttons.add(accept,"align 100%");
+        buttons.add(accept, "align 100%");
         wrapper.add(buttons, "width 100%");
 
         topLevel.add(wrapper);
@@ -108,7 +108,7 @@ public class TraitsPanel extends JPanel {
     private void editTrait(int index) {
         Trait trait = traits[index];
         JFrame topLevel = new JFrame("Edit Trait");
-        topLevel.setSize(Defaults.getScreenWidth() /2, Defaults.getScreenHeight());
+        topLevel.setSize(Defaults.getScreenWidth() / 2, Defaults.getScreenHeight());
         JPanel wrapper = new JPanel(new MigLayout("fill"));
 
         JPanel namePanel = new JPanel(new MigLayout("fillx"));
@@ -145,7 +145,7 @@ public class TraitsPanel extends JPanel {
                 JOptionPane.showMessageDialog(topLevel, "Please enter a name", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-        buttons.add(accept,"align 100%");
+        buttons.add(accept, "align 100%");
         wrapper.add(buttons, "width 100%");
 
         topLevel.add(wrapper);
@@ -154,7 +154,7 @@ public class TraitsPanel extends JPanel {
 
     private void addTrait(Trait trait) {
         if (trait != null) {
-            Trait[] temp = new Trait[traits.length+1];
+            Trait[] temp = new Trait[traits.length + 1];
             System.arraycopy(traits, 0, temp, 0, traits.length);
             temp[traits.length] = trait;
             traits = temp;
@@ -169,9 +169,11 @@ public class TraitsPanel extends JPanel {
 
     private void removeTrait(int index) {
         if (index > -1 && index < traits.length) {
-            Trait[] temp = new Trait[traits.length-1];
+            Trait[] temp = new Trait[traits.length - 1];
             for (int i = 0, k = 0; i < traits.length; i++) {
-                if (i == index) { continue; }
+                if (i == index) {
+                    continue;
+                }
                 temp[k++] = traits[i];
             }
             traits = temp;
@@ -181,23 +183,23 @@ public class TraitsPanel extends JPanel {
 
     private void moveUpTrait(int index) {
         if (index > 0) {
-            Trait temp = traits[index-1];
-            traits[index-1] = traits[index];
+            Trait temp = traits[index - 1];
+            traits[index - 1] = traits[index];
             traits[index] = temp;
             listModel.setElementAt(temp, index);
-            listModel.setElementAt(traits[index-1],index-1);
-            list.setSelectedIndex(index-1);
+            listModel.setElementAt(traits[index - 1], index - 1);
+            list.setSelectedIndex(index - 1);
         }
     }
 
     private void moveDownTrait(int index) {
-        if (index < traits.length-1) {
-            Trait temp = traits[index+1];
-            traits[index+1] = traits[index];
+        if (index < traits.length - 1) {
+            Trait temp = traits[index + 1];
+            traits[index + 1] = traits[index];
             traits[index] = temp;
             listModel.setElementAt(temp, index);
-            listModel.setElementAt(traits[index+1],index+1);
-            list.setSelectedIndex(index+1);
+            listModel.setElementAt(traits[index + 1], index + 1);
+            list.setSelectedIndex(index + 1);
         }
     }
 

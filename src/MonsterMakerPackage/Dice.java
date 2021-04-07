@@ -22,8 +22,16 @@ public class Dice {
     public Dice() {
     }
 
+    public int diceMin() {
+        return diceCount + bonus;
+    }
+
     public int diceAverage() {
         return diceCount * diceSize / 2 + bonus;
+    }
+
+    public int diceMax() {
+        return diceCount * diceSize + bonus;
     }
 
     public int hitDiceAverage() {
