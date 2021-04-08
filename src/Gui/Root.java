@@ -24,6 +24,8 @@ public class Root extends JFrame {
         super("5e Monster Maker");
         setSize(Defaults.getScreenDimension());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ImageIcon icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/static/monstermaker.png")));
+        setIconImage(icon.getImage());
 
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.add("Identity", identity);
