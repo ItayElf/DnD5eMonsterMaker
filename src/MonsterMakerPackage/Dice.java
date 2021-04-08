@@ -71,4 +71,24 @@ public class Dice {
         }
         return str;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Dice dice = (Dice) o;
+
+        if (diceCount != dice.diceCount) return false;
+        if (diceSize != dice.diceSize) return false;
+        return bonus == dice.bonus;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = diceCount;
+        result = 31 * result + diceSize;
+        result = 31 * result + bonus;
+        return result;
+    }
 }

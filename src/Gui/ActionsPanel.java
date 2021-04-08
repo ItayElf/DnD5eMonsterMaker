@@ -6,6 +6,8 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
 public class ActionsPanel extends JPanel {
@@ -26,6 +28,15 @@ public class ActionsPanel extends JPanel {
         list.setLayoutOrientation(JList.VERTICAL);
         list.setVisibleRowCount(-1);
         list.setFont(Defaults.getComboBoxFont());
+        list.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (e.getClickCount() == 2) {
+                    editAction(list.getSelectedIndex());
+                }
+            }
+        });
         JScrollPane scrollPane = new JScrollPane(list);
 
         JPanel buttons = new JPanel(new MigLayout("filly"));
@@ -367,7 +378,7 @@ public class ActionsPanel extends JPanel {
         topLevel.setVisible(true);
     }
 
-    private void addAction(Action action) {
+    public void addAction(Action action) {
         if (action != null) {
             Action[] temp = new Action[actions.length + 1];
             System.arraycopy(actions, 0, temp, 0, actions.length);

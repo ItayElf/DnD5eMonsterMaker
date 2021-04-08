@@ -5,6 +5,8 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
 public class TraitsPanel extends JPanel {
@@ -25,6 +27,15 @@ public class TraitsPanel extends JPanel {
         list.setLayoutOrientation(JList.VERTICAL);
         list.setVisibleRowCount(-1);
         list.setFont(Defaults.getComboBoxFont());
+        list.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (e.getClickCount() == 2) {
+                    editTrait(list.getSelectedIndex());
+                }
+            }
+        });
         JScrollPane scrollPane = new JScrollPane(list);
 
         JPanel buttons = new JPanel(new MigLayout("filly"));
@@ -152,7 +163,7 @@ public class TraitsPanel extends JPanel {
         topLevel.setVisible(true);
     }
 
-    private void addTrait(Trait trait) {
+    public void addTrait(Trait trait) {
         if (trait != null) {
             Trait[] temp = new Trait[traits.length + 1];
             System.arraycopy(traits, 0, temp, 0, traits.length);

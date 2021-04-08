@@ -1,5 +1,7 @@
 package MonsterMakerPackage;
 
+import java.util.Objects;
+
 public class Action {
     private String name;
     private int mode; // 0 - no attack, 1 - melee, 2 - ranged
@@ -56,6 +58,36 @@ public class Action {
                 damageType,
                 description
         );
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Action action = (Action) o;
+
+        if (mode != action.mode) return false;
+        if (bonusToHit != action.bonusToHit) return false;
+        if (!Objects.equals(name, action.name)) return false;
+        if (!Objects.equals(reach, action.reach)) return false;
+        if (!Objects.equals(targets, action.targets)) return false;
+        if (!Objects.equals(damageDice, action.damageDice)) return false;
+        if (!Objects.equals(damageType, action.damageType)) return false;
+        return Objects.equals(description, action.description);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + mode;
+        result = 31 * result + bonusToHit;
+        result = 31 * result + (reach != null ? reach.hashCode() : 0);
+        result = 31 * result + (targets != null ? targets.hashCode() : 0);
+        result = 31 * result + (damageDice != null ? damageDice.hashCode() : 0);
+        result = 31 * result + (damageType != null ? damageType.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        return result;
     }
 
     public int getBonusToHit() {

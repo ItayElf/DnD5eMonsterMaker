@@ -1,17 +1,13 @@
 import Gui.Root;
-import MonsterMakerPackage.HTMLHelper;
-import MonsterMakerPackage.MonsterMaker;
 
 import java.io.File;
-import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
+        File file = null;
         if (args.length == 1) {
-            System.out.println(HTMLHelper.monsterToHtmlRaw(MonsterMaker.from5emon(new File(args[0]))));
-            return;
+            file = new File(args[0]);
         }
-
-        Root root = new Root();
+        Root root = new Root(file);
     }
 }

@@ -20,7 +20,7 @@ public class Root extends JFrame {
     private final ActionsPanel actionsPanel = new ActionsPanel();
     private final TraitsPanel reactionsPanel = new TraitsPanel();
 
-    public Root() {
+    public Root(File openedFile) {
         super("5e Monster Maker");
         setSize(Defaults.getScreenDimension());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -218,6 +218,36 @@ public class Root extends JFrame {
         });
         exportOpenItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
         menu.add(exportOpenItem);
+        menu.addSeparator();
+        JMenuItem importTraitsActions = new JMenuItem("Import traits and actions from another monster");
+        importTraitsActions.setAccelerator(KeyStroke.getKeyStroke('I', Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
+        importTraitsActions.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            fileChooser.setFileFilter(new FileFilter() {
+                @Override
+                public boolean accept(File f) {
+                    if (f.isDirectory()) {
+                        return false;
+                    }
+                    return f.getName().toLowerCase().endsWith(".5emon");
+                }
+
+                @Override
+                public String getDescription() {
+                    return "*.5emon";
+                }
+            });
+            int val = fileChooser.showOpenDialog(null);
+            if (val == JFileChooser.APPROVE_OPTION) {
+                try {
+                    importTraitsActions(fileChooser.getSelectedFile());
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+        });
+        menu.add(importTraitsActions);
         menuBar.add(new Tools(identity.getChallengeField(),
                 new JTextField[]{primary.getDiceCountField(), primary.getDiceSizeField(), primary.getDiceBonusField()},
                 identity.getSizeBox(),
@@ -225,6 +255,14 @@ public class Root extends JFrame {
                 secondary.getSkillsField()));
         setJMenuBar(menuBar);
 
+        if (openedFile != null) {
+            try {
+                open(openedFile);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "File couldn't be opened.", "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        }
         setVisible(true);
     }
 
@@ -365,5 +403,19 @@ public class Root extends JFrame {
         traitsPanel.load(null);
         actionsPanel.load(null);
         reactionsPanel.load(null);
+    }
+
+    public void importTraitsActions(File file) throws IOException {
+        MonsterMaker monster = MonsterMaker.from5emon(file);
+
+        JFrame topLevel = new JFrame("Import");
+        topLevel.setSize(Defaults.getScreenWidth() / 10 * 7, Defaults.getScreenHeight());
+        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.add("Traits", new ImportTraits(monster.getTraits(), traitsPanel));
+        tabbedPane.add("Actions", new ImportActions(monster.getActions(), actionsPanel));
+        tabbedPane.add("Reactions", new ImportTraits(monster.getReactions(), reactionsPanel));
+
+        topLevel.add(tabbedPane);
+        topLevel.setVisible(true);
     }
 }
