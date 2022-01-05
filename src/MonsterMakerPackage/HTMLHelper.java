@@ -4,13 +4,15 @@ import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class HTMLHelper {
 
     private static String loadFile() {
         StringBuilder sb = new StringBuilder();
-        Scanner scanner = new Scanner(HTMLHelper.class.getResourceAsStream("/static/index.html"));
+        Scanner scanner = new Scanner(Objects.requireNonNull(HTMLHelper.class.getResourceAsStream("/static/index.html")));
         while (scanner.hasNextLine()) {
             sb.append(scanner.nextLine());
         }
@@ -106,7 +108,7 @@ public class HTMLHelper {
         html = html.replace("TRAITS", a.toString());
 
 
-        if (monster.getActions() != null) {
+        if (monster.getActions() != null && !Arrays.equals(monster.getActions(), new Action[0])) {
             a = new StringBuilder();
             for (Action action : monster.getActions()) {
                 a.append("<li>%s</li>".formatted(actionHtml(action)));
@@ -115,7 +117,7 @@ public class HTMLHelper {
         } else {
             html = html.replace("<a name=\"toc_5\"></a><h2>Actions</h2><hr> <ul>AACTIONS</ul>", "");
         }
-        if (monster.getReactions() != null) {
+        if (monster.getReactions() != null && !Arrays.equals(monster.getReactions(), new Trait[0])) {
             a = new StringBuilder();
             for (Trait reaction : monster.getReactions()) {
                 a.append("<li>%s</li>".formatted(traitHtml(reaction)));

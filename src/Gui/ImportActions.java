@@ -1,7 +1,6 @@
 package Gui;
 
 import MonsterMakerPackage.Action;
-import MonsterMakerPackage.Trait;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;

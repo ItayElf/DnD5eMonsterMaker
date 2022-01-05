@@ -47,12 +47,12 @@ public class Root extends JFrame {
         openItem.setAccelerator(KeyStroke.getKeyStroke('O', Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
         openItem.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir") + "\\Monsters"));
             fileChooser.setFileFilter(new FileFilter() {
                 @Override
                 public boolean accept(File f) {
                     if (f.isDirectory()) {
-                        return false;
+                        return true;
                     }
                     return f.getName().toLowerCase().endsWith(".5emon");
                 }
@@ -80,12 +80,12 @@ public class Root extends JFrame {
                 MonsterMaker monster = createMonster();
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setSelectedFile(new File(monster.getName() + ".5emon"));
-                fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+                fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir") + "\\Monsters"));
                 fileChooser.setFileFilter(new FileFilter() {
                     @Override
                     public boolean accept(File f) {
                         if (f.isDirectory()) {
-                            return false;
+                            return true;
                         }
                         return f.getName().toLowerCase().endsWith(".5emon");
                     }
@@ -128,12 +128,12 @@ public class Root extends JFrame {
                 MonsterMaker monster = createMonster();
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setSelectedFile(new File(monster.getName() + ".html"));
-                fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+                fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir") + "\\Monsters"));
                 fileChooser.setFileFilter(new FileFilter() {
                     @Override
                     public boolean accept(File f) {
                         if (f.isDirectory()) {
-                            return false;
+                            return true;
                         }
                         return f.getName().toLowerCase().endsWith(".html");
                     }
@@ -177,12 +177,12 @@ public class Root extends JFrame {
                 MonsterMaker monster = createMonster();
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setSelectedFile(new File(monster.getName() + ".html"));
-                fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+                fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir") + "\\Monsters"));
                 fileChooser.setFileFilter(new FileFilter() {
                     @Override
                     public boolean accept(File f) {
                         if (f.isDirectory()) {
-                            return false;
+                            return true;
                         }
                         return f.getName().toLowerCase().endsWith(".html");
                     }
@@ -225,12 +225,12 @@ public class Root extends JFrame {
         importTraitsActions.setAccelerator(KeyStroke.getKeyStroke('I', Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
         importTraitsActions.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir") + "\\Monsters"));
             fileChooser.setFileFilter(new FileFilter() {
                 @Override
                 public boolean accept(File f) {
                     if (f.isDirectory()) {
-                        return false;
+                        return true;
                     }
                     return f.getName().toLowerCase().endsWith(".5emon");
                 }
